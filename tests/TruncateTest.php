@@ -43,6 +43,7 @@ EOD;
   }
 
   public function truncate($text, $maxlength, $wordsafe = FALSE) {
+    $text = $this->normalize($text);
     preg_match_all('/<[^>]++>|[^<>\s]++/', $text, $tokens);
 
     $counter = 0;
@@ -63,7 +64,9 @@ EOD;
       }
       $newtext[] = $token;
     }
-    return implode('', $newtext);
+    $text = implode('', $newtext);
+    $text = $this->normalize($text);
+    return $text;
   }
 
 
