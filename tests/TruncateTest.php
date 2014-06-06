@@ -86,6 +86,11 @@ EOD;
         'l' => 5,
         'e' => 'fooba',
       ),
+      array(
+        't' => 'CaFÉ bar',
+        'l' => 5,
+        'e' => 'CaFÉ ',
+      ),
     );
 
     foreach ($tests as $test) {
