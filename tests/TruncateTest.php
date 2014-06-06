@@ -80,6 +80,25 @@ EOD;
         't' => 'foo bar',
         'l' => 5,
         'e' => 'foo b',
+        'ws' => FALSE,
+      ),
+      array(
+        't' => 'foo' . PHP_EOL . 'bar',
+        'l' => 5,
+        'e' => 'foo' . PHP_EOL . 'b',
+        'ws' => FALSE,
+      ),
+      array(
+        't' => 'foo bar',
+        'l' => 5,
+        'e' => 'foo',
+        'ws' => TRUE,
+      ),
+      array(
+        't' => 'foo' . PHP_EOL . 'bar',
+        'l' => 5,
+        'e' => 'foo',
+        'ws' => TRUE,
       ),
       array(
         't' => 'foobar',
@@ -94,7 +113,8 @@ EOD;
     );
 
     foreach ($tests as $test) {
-      $this->assertEquals($this->truncate($test['t'], $test['l'], FALSE), $test['e']);
+      $this->assertEquals($this->truncate($test['t'], $test['l'], $tests['ws']), $test['e']);
     }
   }
+
 }
