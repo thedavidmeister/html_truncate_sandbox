@@ -121,7 +121,7 @@ EOD;
     );
 
     foreach ($tests as $test) {
-      $this->assertEquals($this->truncate($test['t'], $test['l'], $tests['ws']), $test['e'], $test['m']);
+      $this->assertEquals($this->truncate($test['t'], $test['l'], $test['ws']), $test['e'], $test['m']);
     }
   }
 
