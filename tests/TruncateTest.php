@@ -1,11 +1,17 @@
 <?php
 class TruncateTest extends PHPUnit_Framework_Testcase {
 
+  /**
+   * Copied from D8.
+   */
   public function normalize($html) {
     $document = $this->load($html);
     return $this->serialize($document);
   }
 
+  /**
+   * Copied from D8.
+   */
   public function load($html) {
     $document = <<<EOD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -26,6 +32,9 @@ EOD;
     return $dom;
   }
 
+  /**
+   * Copied from D8.
+   */
   public function serialize(\DOMDocument $document) {
     $body_node = $document->getElementsByTagName('body')->item(0);
     $html = '';
@@ -42,7 +51,10 @@ EOD;
     return $html;
   }
 
-  public function truncate($text, $maxlength, $wordsafe = FALSE) {
+  /**
+   * Proposed new truncate function.
+   */
+  public function truncate($text, $maxlength, $wordsafe = FALSE, $add_ellipsis = FALSE, $min_wordsafe_length = 1) {
     $text = $this->normalize($text);
     preg_match_all('/<[^>]++>|[^<>\s]++/', $text, $tokens);
 
@@ -121,7 +133,7 @@ EOD;
     );
 
     foreach ($tests as $test) {
-      $this->assertEquals($this->truncate($test['t'], $test['l'], $test['ws']), $test['e'], $test['m']);
+      $this->assertEquals($test['e'], $this->truncate($test['t'], $test['l'], $test['ws']), $test['m']);
     }
   }
 
