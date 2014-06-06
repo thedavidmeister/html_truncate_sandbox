@@ -52,11 +52,13 @@ EOD;
         $newtext[] = $token;
         continue;
       }
-      $counter += strlen(html_entity_decode($token));
+      $counter += mb_strlen(html_entity_decode($token));
       if ($counter > $maxlength) {
-        $delta = $counter - $maxlength;
-        $fragment = substr($tokens[$i + 1], 0, $delta);
-        $newtext[] = $fragment;
+        if (!$wordsafe) {
+          $delta = $counter - $maxlength;
+          $fragment = mb_substr($token, 0, $delta);
+          $newtext[] = $fragment;
+        }
         break;
       }
       $newtext[] = $token;
