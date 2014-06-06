@@ -42,18 +42,21 @@ EOD;
     return $html;
   }
 
-  public function truncate($text, $maxlength) {
+  public function truncate($text, $maxlength, $wordsafe = FALSE) {
     preg_match_all('/<[^>]++>|[^<>\s]++/', $text, $tokens);
 
     $counter = 0;
     $newtext = array();
-    foreach ($tokens[0] as $token) {
+    foreach ($tokens[0] as $i => $token) {
       if (mb_substr($token, 0, 1, 'utf-8') === '<') {
         $newtext[] = $token;
         continue;
       }
       $counter += strlen(html_entity_decode($token));
       if ($counter > $maxlength) {
+        $delta = $counter - $maxlength;
+        $fragment = substr($tokens[$i + 1], 0, $delta);
+        $newtext[] = $fragment;
         break;
       }
       $newtext[] = $token;
@@ -62,6 +65,10 @@ EOD;
   }
 
 
+  /**
+   * Tests for truncate with word safe disabled and no HTML.
+   * @return [type] [description]
+   */
   public function testCanCountString() {
     $tests = array(
       array(
@@ -77,7 +84,7 @@ EOD;
     );
 
     foreach ($tests as $test) {
-      $this->assertEquals($this->truncate($test['t'], $test['l']), $test['e']);
+      $this->assertEquals($this->truncate($test['t'], $test['l'], FALSE), $test['e']);
     }
   }
 }
