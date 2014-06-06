@@ -63,11 +63,21 @@ EOD;
 
 
   public function testCanCountString() {
-    // Cut into bar. we expect foo.
-    $text = 'foo bar';
-    $maxlength = 5;
-    $expected = 'foo';
+    $tests = array(
+      array(
+        't' => 'foo bar',
+        'l' => 5,
+        'e' => 'foo b',
+      ),
+      array(
+        't' => 'foobar',
+        'l' => 5,
+        'e' => 'fooba',
+      ),
+    );
 
-    $this->assertEqual($this->truncate($text, $maxlength), $expected);
+    foreach ($tests as $test) {
+      $this->assertEquals($this->truncate($test['t'], $test['l']), $test['e']);
+    }
   }
 }
