@@ -81,39 +81,47 @@ EOD;
         'l' => 5,
         'e' => 'foo b',
         'ws' => FALSE,
+        'm' => 'basic foo bar, wordsafe off',
       ),
       array(
         't' => 'foo' . PHP_EOL . 'bar',
         'l' => 5,
         'e' => 'foo' . PHP_EOL . 'b',
         'ws' => FALSE,
+        'm' => 'foobar with newline, wordsafe off',
       ),
       array(
         't' => 'foo bar',
         'l' => 5,
         'e' => 'foo',
         'ws' => TRUE,
+        'm' => 'basic foo bar, wordsafe on',
       ),
       array(
         't' => 'foo' . PHP_EOL . 'bar',
         'l' => 5,
         'e' => 'foo',
         'ws' => TRUE,
+        'm' => 'foobar with newline, wordsafe on',
       ),
       array(
         't' => 'foobar',
-        'l' => 5,
-        'e' => 'fooba',
+        'l' => 4,
+        'e' => 'foob',
+        'ws' => FALSE,
+        'm' => 'basic foobar, wordsafe off',
       ),
       array(
         't' => 'CaFÉ bar',
         'l' => 5,
         'e' => 'CaFÉ ',
+        'ws' => FALSE,
+        'm' => 'CaFÉ, wordsafe off'
       ),
     );
 
     foreach ($tests as $test) {
-      $this->assertEquals($this->truncate($test['t'], $test['l'], $tests['ws']), $test['e']);
+      $this->assertEquals($this->truncate($test['t'], $test['l'], $tests['ws']), $test['e'], $test['m']);
     }
   }
 
