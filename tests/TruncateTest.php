@@ -56,6 +56,7 @@ EOD;
    */
   public function truncate($text, $maxlength, $wordsafe = FALSE, $add_ellipsis = FALSE, $min_wordsafe_length = 1) {
     $text = $this->normalize($text);
+
     preg_match_all('/<[^>]++>|[^<>\s]++/', $text, $tokens);
 
     $counter = 0;
