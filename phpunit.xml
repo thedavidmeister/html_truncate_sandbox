@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
      backupStaticAttributes="false"
-
+     bootstrap="./src/Html.php"
      cacheTokens="false"
      colors="false"
      convertErrorsToExceptions="true"
